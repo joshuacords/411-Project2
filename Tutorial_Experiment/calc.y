@@ -8,26 +8,56 @@ void updateSymbolVal(char symbol, int val);
 %}
 
 %union {int num; char id;}         /* Yacc definitions */
-%start line
-%token print
-%token exit_command
-%token <num> number
-%token <id> identifier
-%type <num> line exp term 
-%type <id> assignment
+%start Program
+%token _boolean
+%token _break
+%token _class
+%token _double
+%token _else
+%token _extends
+%token _for
+%token _if
+%token _implements
+%token _int
+%token _newarray
+%token _println
+%token _readln
+%token _return
+%token _string
+%token _void
+%token _while
+%token _plus
+%token _minus
+%token _multiplication
+%token _division
+%token _mod
+%token _less
+%token _lessequal
+%token _greater
+%token _greaterequal
+%token _equal
+%token _notequal
+%token _and
+%token _or
+%token _not
+%token _assignop
+%token _semicolon
+%token _comma
+%token _period
+%token _leftparen
+%token _rightparen
+%token _leftbracket
+%token _rightbracket
+%token _leftbrace
+%token _rightbrace
+%token _intconstant
+%token _doubleconstant
+%token _stringconstant
+%token _booleanconstant
+%token _id
 
 %%
-
 /* descriptions of expected inputs     corresponding actions (in C) */
-
-
-
-
-
-
-
-
-
 Program	: Decl 					{printf("reduce 1")}
 		| Program Decl 			{printf("reduce 2")};
 Decl 	: VariableDecl			{printf("reduce 3")}
