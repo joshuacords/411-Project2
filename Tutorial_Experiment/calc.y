@@ -129,7 +129,6 @@ Exprs 	: Expr 													{printf("reduce 67")}
 Expr 	: Constant 												{printf("reduce 69")}
 		| Lvalue 												{printf("reduce 70")}
 		| Call 													{printf("reduce 71")}
-		| _leftparen Expr _rightparen 							{printf("reduce 72")}
 		| _readln _leftparen _rightparen 						{printf("reduce 73")}
 		| _newarray _leftparen _intconstant _comma Type _rightparen {printf("reduce 74")}
 		| Lvalue '=' Expr 										{printf("reduce 75")}
@@ -147,7 +146,8 @@ Expr 	: Constant 												{printf("reduce 69")}
 		| Expr _division Expr 									{printf("reduce 87")}
 		| Expr _mod Expr 										{printf("reduce 88")}
 		| _not Expr 											{printf("reduce 89")}
-		| _minus Expr 											{printf("reduce 90")};
+		| _minus Expr 											{printf("reduce 90")}
+		| _leftparen Expr _rightparen 							{printf("reduce 72")};
 Lvalue 	: _id 													{printf("reduce 91")}
 		| Lvalue _leftbracket Expr _rightbracket 				{printf("reduce 92")}
 		| Lvalue _period _id 									{printf("reduce 93")};
