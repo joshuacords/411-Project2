@@ -60,6 +60,9 @@ void yyerror (char *s);
 %left _plus _minus
 %left _multiplication _division _mod
 %left _not
+%left _leftbracket _period
+%nonassoc THEN
+%nonassoc _else
 
 %%
 /* descriptions of expected inputs     corresponding actions (in C) */
@@ -71,18 +74,23 @@ Decl 		: VariableDecl											{printf("[reduce 3]");}
 		| InterfaceDecl											{printf("[reduce 6]");};
 VariableDecl 	: Variable _semicolon										{printf("[reduce 7]");};
 Variable 	: Type _id 											{printf("[reduce 8]");};
-Type 		: _int 												{printf("[reduce 9]");}
+Type 		: _int Type2											{printf("[reduce 9]");}
+		| _double Type2 										{printf("[reduce 10]");}
+		| _boolean Type2										{printf("[reduce 11]");}
+		| _string Type2											{printf("[reduce 12]");}
+		| _id Type2											{printf("[reduce 14]");}
+ 		| _int 												{printf("[reduce 9]");}
 		| _double 											{printf("[reduce 10]");}
 		| _boolean											{printf("[reduce 11]");}
 		| _string											{printf("[reduce 12]");}
-		| Type _leftbracket _rightbracket								{printf("[reduce 13]");}
 		| _id 												{printf("[reduce 14]");};
+Type2		: _leftbracket _rightbracket									{printf("[reduce 13]");}
+		| _leftbracket _rightbracket Type2								{printf("[reduce 13`]");};
 FunctionDecl 	: Type _id _leftparen Formals _rightparen StmtBlock 						{printf("[reduce 15]");}
 		| _void _id _leftparen Formals _rightparen StmtBlock 						{printf("[reduce 16]");}
 	 	| Type _id _leftparen _rightparen StmtBlock 							{printf("[reduce 15]");}
 		| _void _id _leftparen _rightparen StmtBlock 							{printf("[reduce 16]");};
 Formals		: Variables 											{printf("[reduce 17]");};
-
 Variables 	: Variable _comma Variables 									{printf("[reduce 20]");}
 		| Variable 											{printf("[reduce 21]");};
 ClassDecl 	: _class _id Fields0 										{printf("[reduce 22]");}
@@ -119,7 +127,7 @@ Stmt 		: _semicolon 											{printf("[reduce 47]");}
 		| ReturnStmt 											{printf("[reduce 53]");}
 		| PrintStmt 											{printf("[reduce 54]");}
 		| StmtBlock 											{printf("[reduce 55]");};
-IfStmt 		: _if _leftparen Expr _rightparen Stmt 								{printf("[reduce 56]");}
+IfStmt 		: _if _leftparen Expr _rightparen Stmt 			%prec THEN				{printf("[reduce 56]");}
 		| _if _leftparen Expr _rightparen Stmt _else Stmt 						{printf("[reduce 57]");};
 WhileStmt 	: _while _leftparen Expr _rightparen Stmt 							{printf("[reduce 58]");};
 ForStmt		: _for _leftparen _semicolon Expr _semicolon _rightparen Stmt 					{printf("[reduce 59]");}
@@ -154,13 +162,16 @@ Expr 		: Constant 											{printf("[reduce 69]");}
 		| _not Expr 											{printf("[reduce 89]");}
 		| _minus Expr 											{printf("[reduce 90]");}
 		| _leftparen Expr _rightparen 									{printf("[reduce 91]");};
-Lvalue 		: _id 												{printf("[reduce 92]");}
-		| Lvalue _leftbracket Expr _rightbracket 							{printf("[reduce 93]");}
-		| Lvalue _period _id 										{printf("[reduce 94]");};
+Lvalue		: _id 												{printf("[reduce 92]");}
+		| _id Lvalue2											{printf("[reduce 92`]")};
+Lvalue2		: _leftbracket Expr _rightbracket 								{printf("[reduce 93]");}
+		| _period _id 											{printf("[reduce 94]");}
+		| _leftbracket Expr _rightbracket Lvalue2							{printf("[reduce 93`]");}
+		| _period _id Lvalue2										{printf("[reduce 94`]");};
 Call 		: _id _leftparen Exprs _rightparen 								{printf("[reduce 95]");}
-		| _id _period _id _leftparen Exprs _rightparen 						{printf("[reduce 96]");}
-		| _id _leftparen _rightparen 								{printf("[reduce 97]");}
-		| _id _period _id _leftparen _rightparen 						{printf("[reduce 98]");};
+		| _id _period _id _leftparen Exprs _rightparen 							{printf("[reduce 96]");}
+		| _id _leftparen _rightparen 									{printf("[reduce 97]");}
+		| _id _period _id _leftparen _rightparen 							{printf("[reduce 98]");};
 Constant 	: _intconstant 											{printf("[reduce 99]");}
 		| _doubleconstant 										{printf("[reduce 100]");}
 		| _booleanconstant 										{printf("[reduce 101]");}

@@ -91,7 +91,8 @@ extern int yydebug;
     _doubleconstant = 301,
     _stringconstant = 302,
     _booleanconstant = 303,
-    _id = 304
+    _id = 304,
+    THEN = 305
   };
 #endif
 /* Tokens.  */
@@ -142,6 +143,7 @@ extern int yydebug;
 #define _stringconstant 302
 #define _booleanconstant 303
 #define _id 304
+#define THEN 305
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
