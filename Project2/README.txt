@@ -27,3 +27,6 @@ bracketed all the reduce statements
 
 Added %left for _assignop, _or, _and, _equal, _notequal, _less, _lessequal, _greater, _greaterequal, _plus, _minus, _multiplication, _division, _mod, and _not
 
+Removed Actuals.
+
+Reordered Stmts and VariableDecl to try to remove left recursion.

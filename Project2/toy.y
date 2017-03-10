@@ -109,7 +109,7 @@ StmtBlock 	: _leftbrace VariableDecls _rightbrace	 							{printf("[reduce 40]")
 VariableDecls	: VariableDecl 											{printf("[reduce 43]");}
 		| VariableDecl VariableDecls 									{printf("[reduce 44]");};
 Stmts 		: Stmt 												{printf("[reduce 45]");}
-		| Stmt Stmts 											{printf("[reduce 46]");};
+		| Stmts Stmt 											{printf("[reduce 46]");};
 Stmt 		: _semicolon 											{printf("[reduce 47]");}
 		| Expr _semicolon 										{printf("[reduce 48]");}
 		| IfStmt 											{printf("[reduce 49]");}
@@ -157,10 +157,10 @@ Expr 		: Constant 											{printf("[reduce 69]");}
 Lvalue 		: _id 												{printf("[reduce 92]");}
 		| Lvalue _leftbracket Expr _rightbracket 							{printf("[reduce 93]");}
 		| Lvalue _period _id 										{printf("[reduce 94]");};
-Call 		: _id _leftparen Actuals _rightparen 								{printf("[reduce 95]");}
-		| _id _period _id _leftparen Actuals _rightparen 						{printf("[reduce 96]");};
-Actuals 	: Exprs 											{printf("[reduce 97]");}
-		|												{printf("[reduce 98]")};
+Call 		: _id _leftparen Exprs _rightparen 								{printf("[reduce 95]");}
+		| _id _period _id _leftparen Exprs _rightparen 						{printf("[reduce 96]");}
+		| _id _leftparen _rightparen 								{printf("[reduce 97]");}
+		| _id _period _id _leftparen _rightparen 						{printf("[reduce 98]");};
 Constant 	: _intconstant 											{printf("[reduce 99]");}
 		| _doubleconstant 										{printf("[reduce 100]");}
 		| _booleanconstant 										{printf("[reduce 101]");}
