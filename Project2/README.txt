@@ -25,3 +25,5 @@ StmtBlock	all instances of _leftbracket to _left brace
 appendded a semicolon to all the printf statements in toy.y
 bracketed all the reduce statements
 
+Added %left for _assignop, _or, _and, _equal, _notequal, _less, _lessequal, _greater, _greaterequal, _plus, _minus, _multiplication, _division, _mod, and _not
+

@@ -52,6 +52,14 @@ void yyerror (char *s);
 %token _stringconstant
 %token _booleanconstant
 %token _id
+%left _assignop
+%left _or
+%left _and
+%left _equal _notequal
+%left _less _lessequal _greater _greaterequal
+%left _plus _minus
+%left _multiplication _division _mod
+%left _not
 
 %%
 /* descriptions of expected inputs     corresponding actions (in C) */
