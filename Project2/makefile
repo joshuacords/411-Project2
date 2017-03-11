@@ -6,4 +6,4 @@ toy: toy.y toy.l
 	gcc lex.yy.c mod.y.tab.c -o toy $(GCCOPTS)
 
 clean:
-	rm lex.yy.c a.out y.output y.tab.h y.tab.c mod.y.tab.c toy 
+	rm lex.yy.c y.output y.tab.h y.tab.c mod.y.tab.c toy 

@@ -117,7 +117,7 @@ StmtBlock 	: _leftbrace VariableDecls _rightbrace	 							{printf("[reduce 46]")
 VariableDecls	: VariableDecl 											{printf("[reduce 49]");}
 		| VariableDecl VariableDecls 									{printf("[reduce 50]");};
 Stmts 		: Stmt 												{printf("[reduce 51]");}
-		| Stmts Stmt 											{printf("[reduce 52]");};
+		| Stmt Stmts 											{printf("[reduce 52]");};
 Stmt 		: _semicolon 											{printf("[reduce 53]");}
 		| Expr _semicolon 										{printf("[reduce 54]");}
 		| IfStmt 											{printf("[reduce 55]");}
